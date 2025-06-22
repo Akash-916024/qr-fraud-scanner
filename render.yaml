@@ -3,5 +3,5 @@ services:
     name: qr-fraud-scanner
     env: python
     buildCommand: ./build.sh
-    startCommand: python app.py
+    startCommand: python fixed_app.py
     plan: free

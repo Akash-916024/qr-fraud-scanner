@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>QR Code Scam Link Detector</title>
+  <style>
+    body { font-family: sans-serif; background-color: #f2f2f2; padding: 20px; text-align: center; }
+    h1 { color: #333; }
+    .box {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 30px;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input[type="file"] {
+      margin: 10px;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .success { color: green; }
+    .danger { color: red; }
+    .warning { color: orange; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>🛡️ QR Code Scam Link Detector</h1>
+    <form method="post" enctype="multipart/form-data">
+      <input type="file" name="qr_image" accept="image/*" required><br>
+      <button type="submit">Scan QR</button>
+    </form>
+    {% if result %}
+      <div class="result {{ status }}">{{ result }}</div>
+    {% endif %}
+  </div>
+</body>
+</html>

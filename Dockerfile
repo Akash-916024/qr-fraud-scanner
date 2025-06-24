@@ -2,7 +2,7 @@
 FROM python:3.9-slim
 
 # Install required system packages for pyzbar
-RUN apt-get update && apt-get install -y libzbar0 gcc
+RUN apt-get update && apt-get install -y libzbar0 gcc ca-certificates
 
 # Set the working directory
 WORKDIR /app

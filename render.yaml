@@ -3,3 +3,5 @@ services:
     name: qr-fraud-scanner
     env: docker
     plan: free
+    branch: main
+    dockerfilePath: Dockerfile

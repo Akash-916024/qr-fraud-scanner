@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 import os
+form link_checker import check_link
 from pyzbar.pyzbar import decode
 from PIL import Image
 from pymongo import MongoClient

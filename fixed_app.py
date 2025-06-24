@@ -47,12 +47,16 @@ def index():
                 file.save(path)
                 link = scan_qr(path)
                 if link:
-                    if is_scam(link):
+                    verdict, reason = check_link(link)
+                    if verdict == "suspicious":
                         status = 'danger'
-                        result = f'🚨 Suspicious Link Detected: {link}'
+                        result = f'🚨 Suspicious Link: {link} — {reason}'
+                    elif verdict == "unknown":
+                        status = 'warning'
+                        result = f'⚠️ Unknown Link: {link} — {reason}'
                     else:
                         status = 'success'
-                        result = f'✅ Link seems clean: {link}'
+                        result = f'✅ Safe Link: {link}'
                 else:
                     status = 'warning'
                     result = '❌ No QR code detected.'

@@ -79,8 +79,7 @@ def report():
             "reported_at": datetime.datetime.now().isoformat()
         }
         try:
-            with open('user_reports.json', 'a') as f:
-                f.write(json.dumps(report) + '\n')
+            collection.insert_one(report)  # Save to MongoDB
             message = "✅ Thank you! Your report has been submitted."
         except Exception as e:
             message = f"❌ Failed to save: {e}"

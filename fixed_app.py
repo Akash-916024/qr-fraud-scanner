@@ -58,3 +58,22 @@ if __name__ == '__main__':
 @app.route("/")
 def home():
     return "QR Fraud Scanner Running!"
+
+import datetime
+
+@app.route('/report', methods=['GET', 'POST'])
+def report():
+    message = None
+    if request.method == 'POST':
+        url = request.form['scam_link']
+        report = {
+            "link": url,
+            "reported_at": datetime.datetime.now().isoformat()
+        }
+        try:
+            with open('user_reports.json', 'a') as f:
+                f.write(json.dumps(report) + '\n')
+            message = "✅ Thank you! Your report has been submitted."
+        except Exception as e:
+            message = f"❌ Failed to save: {e}"
+    return render_template('report.html', message=message)

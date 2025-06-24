@@ -1,7 +1,5 @@
 services:
   - type: web
     name: qr-fraud-scanner
-    env: python
-    buildCommand: ./build.sh
-    startCommand: python fixed_app.py
+    env: docker
     plan: free

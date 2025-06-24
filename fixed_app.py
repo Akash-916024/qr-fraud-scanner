@@ -2,6 +2,14 @@ from flask import Flask, request, render_template
 import os
 from pyzbar.pyzbar import decode
 from PIL import Image
+from pymongo import MongoClient
+import os
+
+# MongoDB connection
+MONGO_URI = os.environ.get("MONGO_URI")
+client = MongoClient(MONGO_URI)
+db = client["qr_scanner"]            # Your MongoDB database name
+collection = db["scam_reports"]      # Collection name
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'

@@ -1,21 +1,23 @@
 from flask import Flask, request, render_template
 import os
-form link_checker import check_link
+from link_checker import check_link
 from pyzbar.pyzbar import decode
 from PIL import Image
 from pymongo import MongoClient
-import os
+import datetime
 
 # MongoDB connection
 MONGO_URI = os.environ.get("MONGO_URI")
 client = MongoClient(MONGO_URI)
-db = client["qr_scanner"]            # Your MongoDB database name
-collection = db["scam_reports"]      # Collection name
+db = client["qr_scanner"]  # Your MongoDB DB name
+collection = db["scam_reports"]
+user_reports = db["user_reports"]  # New collection for user-submitted links
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+# ----------- QR SCANNING LOGIC -----------
 def scan_qr(image_path):
     try:
         image = Image.open(image_path)
@@ -25,16 +27,16 @@ def scan_qr(image_path):
         first_code = decoded[0]
         if first_code.type == 'QRCODE':
             return first_code.data.decode('utf-8')
-        else:
-            return None
     except Exception as e:
         print("Error scanning QR:", e)
-        return None
+    return None
 
-def is_scam(link):
-    red_flags = ['bit.ly', '.tk', 'paytmm', 'freegift', 'login-verify']
-    return any(flag in link.lower() for flag in red_flags)
+# ----------- HOME ROUTE (for render check) -----------
+@app.route("/")
+def home():
+    return "QR Fraud Scanner Running!"
 
+# ----------- INDEX ROUTE: QR SCANNER -----------
 @app.route('/', methods=['GET', 'POST'])
 def index():
     result = None
@@ -66,26 +68,31 @@ def index():
                 result = '⚠️ An error occurred while processing the image.'
     return render_template('index.html', result=result, status=status)
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
-@app.route("/")
-def home():
-    return "QR Fraud Scanner Running!"
-
-import datetime
-
+# ----------- REPORT PAGE: USER LINK SUBMISSION -----------
 @app.route('/report', methods=['GET', 'POST'])
 def report():
     message = None
     if request.method == 'POST':
-        url = request.form['scam_link']
-        report = {
-            "link": url,
-            "reported_at": datetime.datetime.now().isoformat()
-        }
-        try:
-            collection.insert_one(report)  # Save to MongoDB
-            message = "✅ Thank you! Your report has been submitted."
-        except Exception as e:
-            message = f"❌ Failed to save: {e}"
+        url = request.form.get('scam_link')
+        if url:
+            verdict, reason = check_link(url)
+            if verdict == "suspicious":
+                message = f"🚨 This link is already flagged: {reason}"
+            elif verdict == "unknown":
+                try:
+                    user_reports.insert_one({
+                        "link": url,
+                        "reported_at": datetime.datetime.now().isoformat(),
+                        "status": "pending"
+                    })
+                    message = "✅ Thank you! Your report has been submitted for review."
+                except Exception as e:
+                    message = f"❌ Failed to save: {e}"
+            else:
+                message = "✅ This link seems safe, no action needed."
+        else:
+            message = "❌ No link provided."
     return render_template('report.html', message=message)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=10000)

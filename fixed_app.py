@@ -98,5 +98,22 @@ def report():
             message = "❌ No link provided."
     return render_template('report.html', message=message)
 
+@app.route('/check', methods=['GET', 'POST'])
+def check_link_page():
+    result = None
+    status = None
+    if request.method == 'POST':
+        link = request.form.get('check_link')
+        if link:
+            existing = collection.find_one({"link": link})
+            if existing:
+                status = 'danger'
+                result = f'🚨 This link has been reported as suspicious!'
+            else:
+                status = 'success'
+                result = f'✅ No reports found. Link seems clean.'
+    return render_template('check.html', result=result, status=status)
+    
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000)

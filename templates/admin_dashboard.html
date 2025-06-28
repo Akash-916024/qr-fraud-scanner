@@ -6,6 +6,11 @@
 </head>
 <body class="container py-5">
   <h2>📊 Admin Dashboard</h2>
+  
+  {% if alert %}
+  <div class="alert alert-danger">{{ alert }}</div>
+{% endif %}
+  
   <a href="{{ url_for('admin.logout') }}" class="btn btn-secondary mb-3">Logout</a>
 
   {% with messages = get_flashed_messages(with_categories=true) %}

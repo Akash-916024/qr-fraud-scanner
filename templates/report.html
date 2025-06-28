@@ -7,18 +7,19 @@
 </head>
 <body class="bg-light">
   <div class="container py-5">
-    <h2 class="text-center text-danger">🚨 Report a Suspicious QR Link</h2>
+    <h2 class="text-center text-danger">🚨 Report a Suspicious QR or Web Link</h2>
+    <p class="text-center text-muted">Submit links you suspect to be malicious or fake. Our team will review it.</p>
 
-    <form method="post" class="mt-4 p-4 bg-white shadow rounded">
+    <form method="POST" class="mt-4 p-4 bg-white shadow rounded">
       <div class="mb-3">
         <label for="scam_link" class="form-label">Suspicious Link</label>
-        <input type="url" name="scam_link" class="form-control" required>
+        <input type="url" name="scam_link" class="form-control" placeholder="https://example.com" required>
       </div>
-      <button type="submit" class="btn btn-warning">Submit Report</button>
+      <button type="submit" class="btn btn-warning w-100">📤 Submit Report</button>
     </form>
 
     {% if message %}
-      <div class="alert mt-4 alert-info">{{ message }}</div>
+      <div class="alert mt-4 alert-{{ status or 'info' }}">{{ message }}</div>
     {% endif %}
   </div>
 </body>

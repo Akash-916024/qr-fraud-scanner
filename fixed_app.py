@@ -70,7 +70,7 @@ def index():
                 print("File upload or scan error:", e)
                 status = 'danger'
                 result = '⚠️ An error occurred while processing the image.'
-    return render_template('index.html', result=result, status=status)
+    return render_template('home.html', result=result, status=status)
 
 # ----------- REPORT PAGE: USER LINK SUBMISSION -----------
 @app.route('/report', methods=['GET', 'POST'])

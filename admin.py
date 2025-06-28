@@ -1,3 +1,4 @@
+from bson.objectid import ObjectId
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from pymongo import MongoClient
 import os
@@ -36,10 +37,16 @@ def logout():
     session.pop('admin_logged_in', None)
     return redirect(url_for('admin.login'))
 
+
 @admin_bp.route('/admin/delete/<id>')
 def delete_report(id):
     if not session.get('admin_logged_in'):
         return redirect(url_for('admin.login'))
-    collection.delete_one({'_id': id})
-    flash("Report deleted", "success")
+    
+    try:
+        collection.delete_one({'_id': ObjectId(id)})  
+        flash("✅ Report deleted", "success")
+    except Exception as e:
+        flash(f"❌ Deletion failed: {e}", "danger")
+
     return redirect(url_for('admin.dashboard'))

@@ -68,3 +68,23 @@ def delete_report(id):
         flash(f"❌ Deletion failed: {e}", "danger")
 
     return redirect(url_for('admin.dashboard'))
+    
+from datetime import datetime
+
+@admin_bp.route('/admin/delete_all')
+def delete_all_reports():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin.login'))
+    collection.delete_many({})
+    flash("🗑️ All reports deleted!", "success")
+    return redirect(url_for('admin.dashboard'))
+
+@admin_bp.route('/admin/delete_oldest')
+def delete_oldest_reports():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin.login'))
+    oldest = collection.find().sort("reported_at", 1).limit(10)
+    ids = [r["_id"] for r in oldest]
+    collection.delete_many({"_id": {"$in": ids}})
+    flash("🧓 Oldest 10 reports deleted.", "success")
+    return redirect(url_for('admin.dashboard'))

@@ -37,5 +37,11 @@
   {% else %}
     <p>No scam reports yet.</p>
   {% endif %}
+  
+  <div class="my-3 d-flex gap-2">
+  <a href="{{ url_for('admin.delete_oldest_reports') }}" class="btn btn-warning">🧓 Delete Oldest 10</a>
+  <a href="{{ url_for('admin.delete_all_reports') }}" class="btn btn-danger" onclick="return confirm('Are you sure? This will delete ALL reports!')">🗑️ Delete All</a>
+</div>
+  
 </body>
 </html>

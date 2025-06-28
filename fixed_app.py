@@ -12,8 +12,7 @@ import datetime
 MONGO_URI = os.environ.get("MONGO_URI")
 client = MongoClient(MONGO_URI)
 db = client["qr_scanner"]  # Your MongoDB DB name
-collection = db["scam_reports"]
-user_reports = db["user_reports"]  # New collection for user-submitted links
+collection = db["scam_reports"]  
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "mysecret")
@@ -85,7 +84,7 @@ def report():
                 message = f"🚨 This link is already flagged: {reason}"
             elif verdict == "unknown":
                 try:
-                    user_reports.insert_one({
+                    colletion.insert_one({
                         "link": url,
                         "reported_at": datetime.datetime.now().isoformat(),
                         "status": "pending"

@@ -16,8 +16,9 @@
       </div>
       <button type="submit" class="btn btn-success">Scan</button>
     </form>
-<div class="text-center mt-4">
-  <a href="/report" class="btn btn-outline-danger">Report a Scam Link</a>
+<div class="text-center mt-4 d-flex justify-content-center gap-3">
+  <a href="/report" class="btn btn-danger">🚨 Report a Scam Link</a>
+  <a href="/check" class="btn btn-outline-primary">🔍 Check a Link</a>
 </div>
     {% if result %}
       <div class="alert mt-4 alert-{{ status }}">

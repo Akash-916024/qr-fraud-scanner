@@ -16,6 +16,9 @@ collection = db["scam_reports"]
 user_reports = db["user_reports"]  # New collection for user-submitted links
 
 app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY", "mysecret")
+app.register_blueprint(admin_bp)
+
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 

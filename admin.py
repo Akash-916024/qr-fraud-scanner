@@ -10,9 +10,9 @@ client = MongoClient(MONGO_URI)
 db = client["qr_scanner"]
 collection = db["scam_reports"]
 
-# Hardcoded credentials for demo (replace with env var or hashed in real use)
-ADMIN_USERNAME = 'admin'
-ADMIN_PASSWORD = 'admin123'
+# Secure credentials from environment
+ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin123")
 
 @admin_bp.route('/admin/login', methods=['GET', 'POST'])
 def login():

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container py-5">
+  <h2>📊 Admin Dashboard</h2>
+  <a href="{{ url_for('admin.logout') }}" class="btn btn-secondary mb-3">Logout</a>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, msg in messages %}
+      <div class="alert alert-{{category}}">{{ msg }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  {% if reports %}
+    <table class="table table-bordered">
+      <thead>
+        <tr><th>Link</th><th>Reported At</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        {% for report in reports %}
+          <tr>
+            <td>{{ report.link }}</td>
+            <td>{{ report.reported_at }}</td>
+            <td><a href="{{ url_for('admin.delete_report', id=report._id) }}" class="btn btn-danger btn-sm">Delete</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No scam reports yet.</p>
+  {% endif %}
+</body>
+</html>

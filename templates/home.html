@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | QR Scam Shield{% endblock %}
+
+{% block content %}
+  <div class="text-center">
+    <h1 class="text-primary">🔐 Welcome to QR Scam Shield</h1>
+    <p class="lead mt-3">Protect yourself from scam QR codes and malicious links.</p>
+    
+    <hr>
+
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-4 mb-3">
+        <a href="/" class="btn btn-outline-dark w-100">📷 QR Code Scanner</a>
+      </div>
+      <div class="col-md-4 mb-3">
+        <a href="/check" class="btn btn-outline-primary w-100">🔍 Link Checker</a>
+      </div>
+      <div class="col-md-4 mb-3">
+        <a href="/report" class="btn btn-outline-danger w-100">🚨 Report a Scam</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

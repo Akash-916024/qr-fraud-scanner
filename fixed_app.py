@@ -32,8 +32,8 @@ def scan_qr(image_path):
     return None
 
 # ----------- HOME ROUTE (for render check) -----------
-@app.route("/")
-def home():
+@app.route("/status")
+def status():
     return "QR Fraud Scanner Running!"
 
 # ----------- INDEX ROUTE: QR SCANNER -----------

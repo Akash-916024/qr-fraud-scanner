@@ -84,7 +84,7 @@ def report():
                 message = f"🚨 This link is already flagged: {reason}"
             elif verdict == "unknown":
                 try:
-                    colletion.insert_one({
+                    collection.insert_one({
                         "link": url,
                         "reported_at": datetime.datetime.now().isoformat(),
                         "status": "pending"

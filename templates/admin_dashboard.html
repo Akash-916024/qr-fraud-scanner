@@ -9,6 +9,14 @@
   <a href="/admin/logout" class="btn btn-outline-danger">Logout</a>
 </div>
 
+<div class="d-flex justify-content-between mb-4">
+  <a href="{{ url_for('admin.delete_all') }}" class="btn btn-outline-danger"
+     onclick="return confirm('⚠️ Are you sure you want to delete ALL reports?');">🗑️ Delete All</a>
+
+  <a href="{{ url_for('admin.delete_old') }}" class="btn btn-outline-warning"
+     onclick="return confirm('⚠️ This will delete the oldest 10 reports. Proceed?');">🧹 Delete Old 10</a>
+</div>
+
 {% if reports %}
   <div class="table-responsive">
     <table class="table table-bordered table-striped">

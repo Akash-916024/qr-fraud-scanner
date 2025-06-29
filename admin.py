@@ -1,6 +1,7 @@
 from bson.objectid import ObjectId
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from pymongo import MongoClient
+from bson.json_util import dumps
 import os
 
 admin_bp = Blueprint('admin', __name__)
@@ -39,7 +40,7 @@ def dashboard():
     if not session.get('admin_logged_in'):
         return redirect(url_for('admin.login'))
     
-    reports = list(collection.find().sort("reported_at", -1))
+    reports = list(collection.find().sort([("reported_at", -1)]))
     db_usage = get_db_usage_mb()
     limit = 512
     percent = (db_usage / limit) * 100

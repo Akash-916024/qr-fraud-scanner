@@ -1,24 +1,39 @@
-{% extends 'base.html' %}
-
-{% block title %}Home | QR Scam Shield{% endblock %}
+{% extends "base.html" %}
+{% block title %}QR Scam Shield - Home{% endblock %}
 
 {% block content %}
-  <div class="text-center">
-    <h1 class="text-primary">🔐 Welcome to QR Scam Shield</h1>
-    <p class="lead mt-3">Protect yourself from scam QR codes and malicious links.</p>
-    
-    <hr>
+<div class="text-center">
+  <h1 class="mb-4 text-primary">Welcome to QR Scam Shield</h1>
+  <p class="lead">🛡️ Your safety companion against malicious QR codes and suspicious links.</p>
+</div>
 
-    <div class="row justify-content-center mt-4">
-      <div class="col-md-4 mb-3">
-        <a href="/" class="btn btn-outline-dark w-100">📷 QR Code Scanner</a>
-      </div>
-      <div class="col-md-4 mb-3">
-        <a href="/check" class="btn btn-outline-primary w-100">🔍 Link Checker</a>
-      </div>
-      <div class="col-md-4 mb-3">
-        <a href="/report" class="btn btn-outline-danger w-100">🚨 Report a Scam</a>
+<div class="row text-center mt-5">
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">🔍 Scan QR Code</h5>
+        <p class="card-text">Upload and scan QR codes to detect if they're safe or scam.</p>
+        <a href="/qr" class="btn btn-success">Scan Now</a>
       </div>
     </div>
   </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">🚨 Report Scam Link</h5>
+        <p class="card-text">Found a suspicious link? Report it to help others.</p>
+        <a href="/report" class="btn btn-danger">Report Link</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">🔗 Check Link</h5>
+        <p class="card-text">Check if a specific URL has been flagged as a scam.</p>
+        <a href="/check" class="btn btn-outline-primary">Check Now</a>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

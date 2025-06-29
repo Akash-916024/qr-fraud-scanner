@@ -40,8 +40,12 @@ def scan_qr(image_path):
 def status():
     return "QR Fraud Scanner Running!"
 
+@app.route('/')
+def home():
+    return render_template('home.html')
+
 # ----------- INDEX ROUTE: QR SCANNER -----------
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/scanner', methods=['GET', 'POST'])
 def index():
     result = None
     status = None
@@ -70,7 +74,7 @@ def index():
                 print("File upload or scan error:", e)
                 status = 'danger'
                 result = '⚠️ An error occurred while processing the image.'
-    return render_template('home.html', result=result, status=status)
+    return render_template('scanner.html', result=result, status=status)
 
 # ----------- REPORT PAGE: USER LINK SUBMISSION -----------
 @app.route('/report', methods=['GET', 'POST'])

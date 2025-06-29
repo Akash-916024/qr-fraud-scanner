@@ -90,7 +90,7 @@ def report():
                 try:
                     collection.insert_one({
                         "link": url,
-                        "reported_at": datetime.datetime.now().isoformat(),
+                        "reported_at": datetime.datetime.utcnow(),
                         "status": "pending"
                     })
                     message = "✅ Thank you! Your report has been submitted for review."

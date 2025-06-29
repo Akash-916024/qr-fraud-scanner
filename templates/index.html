@@ -1,21 +1,20 @@
-{% extends 'base.html' %}
-
-{% block title %}QR Code Scanner | QR Scam Shield{% endblock %}
+{% extends "base.html" %}
+{% block title %}Scan QR Code - QR Scam Shield{% endblock %}
 
 {% block content %}
-  <h1 class="text-center mb-4 text-primary">🔍 QR Fraud Scanner</h1>
+<h2 class="text-center mb-4 text-success">🔍 QR Code Scanner</h2>
 
-  <form action="/" method="post" enctype="multipart/form-data" class="border rounded p-4 bg-white shadow-sm">
-    <div class="mb-3">
-      <label for="qr_image" class="form-label">Upload QR Code Image</label>
-      <input class="form-control" type="file" name="qr_image" id="qr_image" required>
-    </div>
-    <button type="submit" class="btn btn-success">Scan</button>
-  </form>
+<form action="/" method="post" enctype="multipart/form-data" class="border rounded p-4 bg-white shadow-sm">
+  <div class="mb-3">
+    <label for="qr_image" class="form-label">Upload QR Code Image</label>
+    <input class="form-control" type="file" name="qr_image" id="qr_image" required>
+  </div>
+  <button type="submit" class="btn btn-success">Scan</button>
+</form>
 
-  {% if result %}
-    <div class="alert mt-4 alert-{{ status }}">
-      <strong>{{ result }}</strong>
-    </div>
-  {% endif %}
+{% if result %}
+  <div class="alert mt-4 alert-{{ status }}">
+    <strong>{{ result }}</strong>
+  </div>
+{% endif %}
 {% endblock %}

@@ -41,7 +41,7 @@ def status():
     return "QR Fraud Scanner Running!"
 
 # ----------- INDEX ROUTE: QR SCANNER -----------
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/scanner', methods=['GET', 'POST'])
 def index():
     result = None
     status = None
@@ -113,6 +113,8 @@ def check_link_page():
                 status = 'success'
                 result = f'✅ No reports found. Link seems clean.'
     return render_template('check.html', result=result, status=status)
+
+
     
 
 if __name__ == '__main__':

@@ -41,7 +41,7 @@ def status():
     return "QR Fraud Scanner Running!"
 
 # ----------- INDEX ROUTE: QR SCANNER -----------
-@app.route('/scanner', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     result = None
     status = None
